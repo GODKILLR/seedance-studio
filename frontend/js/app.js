@@ -504,7 +504,7 @@ function openModal(gen) {
     $('modalVideo').src = gen.videoUrl;
     $('modalMeta').textContent = gen.prompt;
     $('modalDownload').href = gen.videoUrl;
-    $('modalDownload').download = `seedance-${gen.id}.mp4`;
+    $('modalDownload').download = `starlabs-${gen.id}.mp4`;
     $('videoModal').style.display = 'flex';
     $('modalVideo').play().catch(() => { });
 }
@@ -730,4 +730,4 @@ if (!localStorage.getItem('apiKey')) {
     setTimeout(() => showToast('Paste your Xskill API key in Settings to get started', 'info', 7000), 1200);
 }
 
-console.log('Seedance Studio v2 ready');
+console.log('Star Labs Studio v2 ready');

@@ -190,7 +190,7 @@ app.get('/{*splat}', (req, res) => {
 // ─── Start ────────────────────────────────────────────────────────────────────
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
   app.listen(PORT, () => {
-    console.log(`\n🎬 Seedance Studio running at http://localhost:${PORT}`);
+    console.log(`\n🎬 Star Labs Studio running at http://localhost:${PORT}`);
     console.log(`   API Key: ${process.env.XSKILL_API_KEY ? '✅ Configured' : '❌ Missing — set XSKILL_API_KEY in .env'}`);
     console.log(`   FFmpeg:  ✅ ${ffmpegPath}\n`);
   });
