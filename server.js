@@ -18,7 +18,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 // Uploads directory
-const uploadsDir = path.join(__dirname, 'uploads');
+const isVercel = process.env.VERCEL === '1' || !!process.env.VERCEL;
+const uploadsDir = isVercel ? '/tmp' : path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 app.use('/uploads', express.static(uploadsDir));
 
@@ -187,8 +188,12 @@ app.get('/{*splat}', (req, res) => {
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🎬 Seedance Studio running at http://localhost:${PORT}`);
-  console.log(`   API Key: ${process.env.XSKILL_API_KEY ? '✅ Configured' : '❌ Missing — set XSKILL_API_KEY in .env'}`);
-  console.log(`   FFmpeg:  ✅ ${ffmpegPath}\n`);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n🎬 Seedance Studio running at http://localhost:${PORT}`);
+    console.log(`   API Key: ${process.env.XSKILL_API_KEY ? '✅ Configured' : '❌ Missing — set XSKILL_API_KEY in .env'}`);
+    console.log(`   FFmpeg:  ✅ ${ffmpegPath}\n`);
+  });
+}
+
+module.exports = app;
